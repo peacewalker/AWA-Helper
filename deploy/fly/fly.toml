@@ -1,0 +1,29 @@
+app = "your-app-name"
+primary_region = "sin"
+kill_signal = "SIGTERM"
+kill_timeout = 30
+
+[build]
+  image = "ghcr.io/your-github-username/awa-helper-fly:latest"
+
+[env]
+  TZ = "Asia/Shanghai"
+
+[[files]]
+  guest_path = "/tmp/bootstrap-config.yml"
+  secret_name = "AWA_CONFIG"
+
+[[mounts]]
+  source = "awa_data"
+  destination = "/data"
+  initial_size = "1gb"
+
+[http_service]
+  internal_port = 2345
+  force_https = true
+  auto_start_machines = true
+  auto_stop_machines = "off"
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "256mb"
